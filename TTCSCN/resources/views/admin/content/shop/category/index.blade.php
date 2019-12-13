@@ -36,12 +36,14 @@ Quản trị danh mục
                                     </tr>
                                     </thead>
                                     <tbody>
+
                                     @foreach($cats as $cat)
                                         <tr>
                                             <th scope="row">{{ $cat->id }}</th>
                                             <td>{{ $cat->name }}</td>
-                                            <td>{{ $cat->slug }}</td>
-                                            <td>{{ $cat->images }}</td>
+                                            <td>{{ $cat->c_title_seo }}</td>
+                                            <td>{{ $cat->c_active }}</td>
+                                            <td>{{ $cat->c_avatar }}</td>
                                             <td>
                                                 <a href="{{ url('admin/shop/category/'.$cat->id.'/edit') }}" class="btn btn-warning">Sửa</a>
                                                 <a href="{{ url('admin/shop/category/'.$cat->id.'/delete ') }}" class="btn btn-danger">Xóa</a>

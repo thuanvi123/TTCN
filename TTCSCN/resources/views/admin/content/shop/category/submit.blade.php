@@ -3,11 +3,7 @@
     Thêm mới danh mục
 @endsection
 @section('content')
-    <style>
-        .error-text{
-            color: red;
-        }
-    </style>    <div class="row">
+      <div class="row">
         <div class="col-md-12 col-sm-12 ">
             <div class="x_panel">
                 <div class="x_title">
@@ -33,11 +29,11 @@
                                     </ul>
                                 </div>
                             @endif
-                            <form action="" name="category" action="{{ url('admin/shop/category') }}" method="post">
+                            <form  name="category" action="{{ url('admin/shop/category') }}" method="post">
                                 @csrf
                                 <div class="form-group">
                                     <label for="name">Tên danh mục :</label>
-                                    <input type="text" class="form-control" value="{{ old('name')}}" id="focusedInput" placeholder="Tên danh mục " name="name">
+                                    <input type="text" class="form-control" value="{{ old('name')}}" id="focusedInput" placeholder="Default Input" name="name">
                                     @if($errors->has('name'))
                                         <span class="error-text">
                                             {{$errors->first('name')}}

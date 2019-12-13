@@ -1,87 +1,100 @@
-@extends('admin.layouts.glance')
+@extends('admin.layouts.quantri')
 @section('title')
     Sửa danh mục
 @endsection
 @section('content')
-    <h1> Sửa danh mục {{ $cat->id . ' : ' .$cat->name }}</h1>
-
     <div class="row">
-        <div class="form-three widget-shadow">
-
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
+        <div class="col-md-12 col-sm-12 ">
+            <div class="x_panel">
+                <div class="x_title">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Trang chủ </a></li>
+                            <li class="breadcrumb-item"><a href="#">Danh mục  </a></li>
+                            <li class=" breadcrumb-item active">Thêm mới </li>
+                        </ol>
+                    </nav>
+                    <h2>sửa danh mục{{$cat->id .':'.$cat->name}} </h2>
+                    <div class="clearfix"></div>
                 </div>
-            @endif
-
-            <form name="category" action="{{ url('admin/shop/category/'.$cat->id) }}" method="post" class="form-horizontal">
-                @csrf
-                <div class="form-group">
-                    <label for="focusedinput" class="col-sm-2 control-label">Tên danh mục</label>
-                    <div class="col-sm-8">
-                        <input type="text" name="name" class="form-control1" id="focusedinput" value="{{ $cat->name }}" placeholder="Default Input">
+                <div class="x_content">
+                    <div class="row">
+                        <div class="container">
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                            <form  name="category" action="{{ url('admin/shop/category/'.$cat->id) }}" method="post">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="name">Tên danh mục :</label>
+                                    <input type="text" class="form-control" value="{{$cat->name}}" id="focusedInput" placeholder="Default Input" name="name">
+                                    @if($errors->has('name'))
+                                        <span class="error-text">
+                                            {{$errors->first('name')}}
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group">
+                                    <label for="focusedinput" >Homepage</label>
+                                    <div>
+                                        <select name="homepage">
+                                            <option value="0" <?php echo ($cat->homepage == 0) ? 'selected' : '' ?>>Không</option>
+                                            <option value="1" <?php echo ($cat->homepage == 1) ? 'selected' : '' ?>>Có</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">slug :</label>
+                                    <input type="text" class="form-control" value="{{$cat->c_slug}}" id="focusedInput" placeholder=" " name="c_slug">
+                                </div>
+                                <div class="form-group">
+                                    <label for="pwd">Icon:</label>
+                                    <input type="text" class="form-control" value="{{$cat->c_icon}}" id="focusedInput" placeholder="fa fa-home" name="c_icon">
+                                    @if($errors->has('c_icon'))
+                                        <span class="error-text">
+                                            {{$errors->first('c_icon')}}
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">Images :</label>
+                                    <input type="text" value="{{$cat->c_avatar}}" class="form-control" id="focusedInput" placeholder=" " name="c_avatar">
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">Meta title :</label>
+                                    <input type="text" class="form-control"  value="{{$cat->c_title_seo}}" id="focusedInput" placeholder="Meta title" name="c_title_seo">
+                                    @if($errors->has('c_title_seo'))
+                                        <span class="error-text">
+                                            {{$errors->first('c_title_seo')}}
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">Meta description :</label>
+                                    <input type="text" class="form-control"  value="{{$cat->c_description_seo}}" id="focusedInput" placeholder="Meta description " name="c_description_seo">
+                                    @if($errors->has('c_description_seo'))
+                                        <span class="error-text">
+                                            {{$errors->first('c_description_seo')}}
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label><input type="checkbox">Nổi bật </label>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="focusedinput" class="col-sm-2 control-label">Slug</label>
-                    <div class="col-sm-8">
-                        <input type="text" name="slug" class="form-control1" id="focusedinput" value="{{ $cat->slug }}" placeholder="Default Input">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="focusedinput" class="col-sm-2 control-label">Homepage</label>
-                    <div class="col-sm-8">
-                        <select name="homepage">
-                            <option value="0" <?php echo ($cat->homepage == 0) ? 'selected' : '' ?>>Không</option>
-                            <option value="1" <?php echo ($cat->homepage == 1) ? 'selected' : '' ?>>Có</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="focusedinput" class="col-sm-2 control-label">Images</label>
-                    <div class="col-sm-8">
-                        <span class="input-group-btn">
-                         <a id="lfm1" data-input="thumbnail1" data-preview="holder1" class="lfm-btn btn btn-primary">
-                           <i class="fa fa-picture-o"></i> Choose
-                         </a>
-                       </span>
-                        <input id="thumbnail1" type="text" name="images" value="{{ $cat->images }}" class="form-control1" id="focusedinput" placeholder="Default Input">
-                        <img id="holder1" src="{{ asset($cat->images) }}" style="margin-top:15px;max-height:100px;">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="txtarea1" class="col-sm-2 control-label">Mô tả ngắn</label>
-                    <div class="col-sm-8">
-                        <textarea name="intro" id="txtarea1" cols="50" rows="4" class="form-control1 mytinymce">{{ $cat->intro }}</textarea></div>
-                </div>
-
-                <div class="form-group">
-                    <label for="txtarea1" class="col-sm-2 control-label">Mô tả</label>
-                    <div class="col-sm-8">
-                        <textarea name="desc" id="txtarea1" cols="50" rows="4" class="form-control1 mytinymce">{{ $cat->desc }}</textarea></div>
-                </div>
-
-                <div class="col-sm-offset-2">
-                    <button type="submit" class="btn btn-success">Submit</button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
-
-    <script src="{{ asset('/vendor/laravel-filemanager/js/lfm.js') }}"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('.lfm-btn').filemanager('image', {'prefix':'http://localhost/lar.tuto/authen/public/laravel-filemanager'});
-
-        });
-
-    </script>
-
-
 @endsection
